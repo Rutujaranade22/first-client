@@ -3,8 +3,7 @@ import axios from 'axios';
 import FamilyCard from '../components/FamilyCard';
 import { Link } from 'react-router-dom';
 
-// ✅ Use your hosted API here
-const BASE_URL = "https://first-server-m4j1.onrender.com";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 function Home() {
   const [family, setFamily] = useState([]);
@@ -12,14 +11,14 @@ function Home() {
   const loadFamily = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/family`);
-      setFamily(response.data.data); // Make sure your API sends .data as an array
+      setFamily(response.data.data);  
     } catch (e) {
       console.error("Error loading family data:", e);
     }
   };
 
   useEffect(() => {
-    loadFamily(); // Load members when component mounts
+    loadFamily();  
   }, []);
 
   return (

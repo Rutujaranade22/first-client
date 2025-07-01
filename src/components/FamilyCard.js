@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const BASE_URL = 'https://first-server-m4j1.onrender.com'; // ✅ your hosted backend
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 function FamilyCard({ id, name, relation, loadFamily }) {
     const deleteMember = async () => {

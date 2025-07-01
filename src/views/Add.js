@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
-const BASE_URL = 'https://first-server-m4j1.onrender.com'; // ✅ Hosted backend
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 function Add() {
   const [member, setMember] = useState({
