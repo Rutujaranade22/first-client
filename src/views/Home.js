@@ -3,20 +3,23 @@ import axios from 'axios';
 import FamilyCard from '../components/FamilyCard';
 import { Link } from 'react-router-dom';
 
+// ✅ Use your hosted API here
+const BASE_URL = "https://first-server-m4j1.onrender.com";
+
 function Home() {
   const [family, setFamily] = useState([]);
 
   const loadFamily = async () => {
     try {
-      const response = await axios.get(`http://localhost:5002/family`);
-      setFamily(response.data.data); // store array of members
+      const response = await axios.get(`${BASE_URL}/family`);
+      setFamily(response.data.data); // Make sure your API sends .data as an array
     } catch (e) {
       console.error("Error loading family data:", e);
     }
   };
 
   useEffect(() => {
-    loadFamily(); // load members when component mounts
+    loadFamily(); // Load members when component mounts
   }, []);
 
   return (
