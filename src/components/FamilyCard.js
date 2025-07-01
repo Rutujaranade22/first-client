@@ -1,18 +1,25 @@
-import React from 'react';
+import React from 'react'; 
 import TrashIcon from './../assets/delete.png';
 import EditIcon from './../assets/edit.png';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const BASE_URL = 'https://first-server-m4j1.onrender.com'; // ✅ your hosted backend
+
 function FamilyCard({ id, name, relation, loadFamily }) {
     const deleteMember = async () => {
-        const response = await axios.delete(`${process.env.REACT_APP_API_URL}/family/${id}`);
-        if (response.data.success) {
-            toast.success(response.data.message);
-            loadFamily();
-        } else {
-            toast.error(response.data.message);
+        try {
+            const response = await axios.delete(`${BASE_URL}/family/${id}`);
+            if (response.data.success) {
+                toast.success(response.data.message);
+                loadFamily();
+            } else {
+                toast.error(response.data.message);
+            }
+        } catch (e) {
+            console.error(e);
+            toast.error("Failed to delete member");
         }
     };
 
@@ -23,10 +30,9 @@ function FamilyCard({ id, name, relation, loadFamily }) {
 
             <div className="flex items-center justify-around mt-6">
                 <img src={TrashIcon} alt="Delete" className='h-[30px] cursor-pointer' onClick={deleteMember} />
-               <Link to={`/edit/${id}`}>
-  <img src={EditIcon} alt="Edit" className='h-[30px] cursor-pointer' />
-</Link>
-
+                <Link to={`/edit/${id}`}>
+                    <img src={EditIcon} alt="Edit" className='h-[30px] cursor-pointer' />
+                </Link>
             </div>
 
             <Toaster />

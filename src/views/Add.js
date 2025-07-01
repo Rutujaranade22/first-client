@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+
+const BASE_URL = 'https://first-server-m4j1.onrender.com'; // ✅ Hosted backend
 
 function Add() {
   const [member, setMember] = useState({
@@ -21,7 +23,7 @@ function Add() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5002/family', member);
+      const response = await axios.post(`${BASE_URL}/family`, member);
       if (response.data.success) {
         setMember({ id: '', name: '', dob: '', email: '', mobile: '' });
         toast.success(response.data.message);

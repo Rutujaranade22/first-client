@@ -1,8 +1,9 @@
-// 📁 src/views/Edit.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { useParams, Link } from 'react-router-dom';
+
+const BASE_URL = 'https://first-server-m4j1.onrender.com'; // ✅ Hosted backend
 
 function Edit() {
   const [member, setMember] = useState({ id: '', name: '', dob: '', email: '', mobile: '' });
@@ -11,7 +12,7 @@ function Edit() {
   useEffect(() => {
     const loadMember = async () => {
       try {
-        const response = await axios.get(`http://localhost:5002/family/${id}`);
+        const response = await axios.get(`${BASE_URL}/family/${id}`);
         setMember(response.data.data);
       } catch (e) {
         toast.error(e.response?.data?.message || 'Failed to fetch data');
@@ -23,7 +24,7 @@ function Edit() {
 
   const editMember = async () => {
     try {
-      const response = await axios.put(`http://localhost:5002/family/${id}`, {
+      const response = await axios.put(`${BASE_URL}/family/${id}`, {
         name: member.name,
         dob: member.dob,
         email: member.email,
